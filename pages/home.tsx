@@ -4,20 +4,27 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeartIcon as HeartIconSolid } from 'react-native-heroicons/solid';
 import { HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
+import UnlockContentPage from './unlockContent';
+import { useState } from 'react';
 
 const HomePage = () => {
+  const [completedQuest, setCompletedQuest] = useState<Boolean>(false)
+
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>
-      <Box bgColor={"#FFF"} h={"$full"}>
-        <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
-          <QuestHeader dailyQuest="Take a picture of the stars" />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-        </ScrollView>
-      </Box>
+      {completedQuest ?
+        <Box bgColor={"#FFF"} h={"$full"}>
+          <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
+            <QuestHeader dailyQuest="Take a picture of the stars" />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+          </ScrollView>
+        </Box> :
+        <UnlockContentPage />
+      }
     </SafeAreaView>
   )
 }
