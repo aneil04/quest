@@ -22,9 +22,13 @@ const HomePage = () => {
   )
 }
 
+interface QuestHeaderProps {
+  dailyQuest: string;
+}
+
 const QuestHeader = () => {
   return (
-    <Center w={"$full"} style={{ backgroundColor: "#FFF" }} pt={3} pb={10}>
+    <Center w={"$full"} style={{ backgroundColor: "#FFF" }} borderBottomWidth={1} borderBottomColor={"$backgroundDark300"} pt={3} pb={10}>
       <Text color={"#000"} bold fontSize={"$xl"}>Take a picture of the stars</Text>
     </Center>
   )

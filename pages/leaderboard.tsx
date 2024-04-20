@@ -7,10 +7,11 @@ import { FireIcon, HeartIcon as HeartIconOutline } from 'react-native-heroicons/
 
 const LeaderboardPage = () => {
   const [boardType, setBoardType] = useState<string>("votes")
+  
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>
       <Box bgColor={"#FFF"} h={"$full"}>
-        <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
+        <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }} pt={"$0"}>
           <LeaderboardHeader boardType={boardType} setBoardType={setBoardType} />
           {boardType === "votes" ?
             <VStack space={"lg"}>
@@ -54,17 +55,17 @@ const LeaderboardHeader = ({ boardType, setBoardType }: LeaderboardHeaderProps) 
   }
 
   return (
-    <VStack bgColor={"#FFF"} space={"md"}>
+    <VStack space={"md"} bgColor="#FFF" borderBottomWidth={1} borderBottomColor={"$backgroundDark300"}>
       <Text color='#000' fontWeight="$semibold" fontSize={"$2xl"} ml={"auto"} mr={"auto"}>Weekly Winners</Text>
-      <HStack w={"$full"}>
+      <HStack w={"$full"} pb={"$3"}>
         <Pressable onPress={() => switchType()} w={"$1/2"}>
-          <Box pr={"$2"}>
-            <Text bold={boardType === "votes"} fontSize={"$xl"} ml="auto" color='#000'>Votes</Text>
+          <Box pr={"$3"}>
+            <Text bold={boardType === "votes"} underline={boardType === "votes"} fontSize={"$xl"} ml="auto" color='#000'>Votes</Text>
           </Box>
         </Pressable>
         <Pressable onPress={() => switchType()} w={"$1/2"}>
-          <Box pl={"$2"}>
-            <Text bold={boardType === "streaks"} fontSize={"$xl"} color='#000'>Streaks</Text>
+          <Box pl={"$3"}>
+            <Text bold={boardType === "streaks"} underline={boardType === "streaks"} fontSize={"$xl"} color='#000'>Streaks</Text>
           </Box>
         </Pressable>
       </HStack>
@@ -125,7 +126,7 @@ interface CalendarCellProps {
 
 const CalendarCell = ({ checked }: CalendarCellProps) => {
   return (
-    <Box w={"$5"} h={"$5"} bgColor={checked ? "$orange400" : "$backgroundDark100"} borderRadius={"$sm"}></Box>
+    <Box w={"$5"} h={"$5"} bgColor={checked ? "$orange500" : "$backgroundDark100"} borderRadius={"$sm"}></Box>
   )
 }
 
