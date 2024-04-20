@@ -44,11 +44,12 @@ const UserStack = () => {
 
         return <QuestionMarkCircleIcon color={color} size={size} />
       },
-      tabBarActiveTintColor: '#FFF',
-      tabBarInactiveTintColor: '#FFF',
+      tabBarActiveTintColor: '#000',
+      tabBarInactiveTintColor: '#000',
       tabBarStyle: {
-        backgroundColor: "#151e2b",
+        backgroundColor: "#FFF",
         paddingTop: 10,
+        borderTopWidth: 1,
       },
       headerShown: false,
     })} initialRouteName='Dashboard'>
