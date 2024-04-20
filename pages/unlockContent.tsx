@@ -8,7 +8,7 @@ const UnlockContentPage = ({ }) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation()
 
   function goToCamera() {
-    navigation.navigate("CameraScreen")
+    navigation.navigate("QuestUpload")
   }
 
   return (

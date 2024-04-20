@@ -6,9 +6,10 @@ import { HeartIcon as HeartIconSolid } from 'react-native-heroicons/solid';
 import { HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
 import UnlockContentPage from './unlockContent';
 import { useState } from 'react';
+import { useQuestContext } from '../contexts/QuestContext';
 
 const HomePage = () => {
-  const [completedQuest, setCompletedQuest] = useState<Boolean>(false)
+  const { completedQuest } = useQuestContext()
 
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>

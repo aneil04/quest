@@ -5,11 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserStack from './stacks/userStack';
 import { AuthProvider } from './contexts/AuthContext';
-import CameraScreen from './pages/cameraScreen';
+import QuestUpload from './pages/questUpload';
+import { QuestProvider } from './contexts/QuestContext';
 
 type AppStackParamList = {
   UserStack: undefined;
-  CameraScreen: undefined;
+  QuestUpload: undefined;
 };
 
 const AppStack = createNativeStackNavigator<AppStackParamList>();
@@ -18,12 +19,14 @@ export default function App() {
   return (
     <GluestackUIProvider config={config}>
       <AuthProvider>
-        <NavigationContainer>
-          <AppStack.Navigator initialRouteName="UserStack" screenOptions={{ headerShown: false, gestureEnabled: true }}>
-            <AppStack.Screen name="UserStack" component={UserStack} />
-            <AppStack.Screen name="CameraScreen" component={CameraScreen} />
-          </AppStack.Navigator>
-        </NavigationContainer>
+        <QuestProvider>
+          <NavigationContainer>
+            <AppStack.Navigator initialRouteName="UserStack" screenOptions={{ headerShown: false, gestureEnabled: true }}>
+              <AppStack.Screen name="UserStack" component={UserStack} />
+              <AppStack.Screen name="QuestUpload" component={QuestUpload} />
+            </AppStack.Navigator>
+          </NavigationContainer>
+        </QuestProvider>
       </AuthProvider>
     </GluestackUIProvider>
   );
