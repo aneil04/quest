@@ -12,16 +12,16 @@ const UnlockContentPage = ({ }) => {
   }
 
   return (
-    <Box h={"$full"} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} p={"$5"}>
+    <Box bgColor='#000' borderBottomWidth={0.5} borderBottomColor="$backgroundDark800" h={"$full"} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} p={"$5"}>
       <VStack alignItems='center' mb={"$3"} mt={-70}>
-        <Text color="#000" fontSize={"$5xl"} textAlign='center' fontWeight='semibold'>Take a picture of the stars</Text>
         <Text color="$backgroundDark400" fontSize={"$md"}>Today's quest</Text>
+        <Text color="#FFF" fontSize={"$5xl"} textAlign='center' fontWeight='semibold'>Take a picture of the stars</Text>
       </VStack>
       <VStack alignItems='center' mb={"$3"}>
-        <Text color="#000" fontSize={"$3xl"} textAlign='center' fontWeight='semibold'>08:23</Text>
         <Text color="$backgroundDark400" fontSize={"$md"}>Time left</Text>
+        <Text color="#FFF" fontSize={"$3xl"} textAlign='center' fontWeight='semibold'>08:23</Text>
       </VStack>
-      <Button onPress={() => goToCamera()} rounded={"$full"} size="xl" backgroundColor='$orange500' $active-backgroundColor='$orange500'>
+      <Button onPress={() => goToCamera()} rounded={"$full"} size="xl" backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
         <ButtonText mr={"$2"}>Upload</ButtonText>
         <ButtonIcon size={"xl"} as={CameraIcon} />
       </Button>

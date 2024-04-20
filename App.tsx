@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config'; // Optional if you want to use default theme
 import { NavigationContainer } from '@react-navigation/native';
-import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserStack from './stacks/userStack';
 import { AuthProvider } from './contexts/AuthContext';
 import QuestUpload from './pages/questUpload';

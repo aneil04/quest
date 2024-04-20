@@ -7,10 +7,10 @@ import { FireIcon, HeartIcon as HeartIconOutline } from 'react-native-heroicons/
 
 const LeaderboardPage = () => {
   const [boardType, setBoardType] = useState<string>("votes")
-  
+
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>
-      <Box bgColor={"#FFF"} h={"$full"}>
+    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
+      <Box bgColor={"#000"} h={"$full"}>
         <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }} pt={"$0"}>
           <LeaderboardHeader boardType={boardType} setBoardType={setBoardType} />
           {boardType === "votes" ?
@@ -55,17 +55,17 @@ const LeaderboardHeader = ({ boardType, setBoardType }: LeaderboardHeaderProps) 
   }
 
   return (
-    <VStack space={"md"} bgColor="#FFF" borderBottomWidth={1} borderBottomColor={"$backgroundDark300"}>
-      <Text color='#000' fontWeight="$semibold" fontSize={"$2xl"} ml={"auto"} mr={"auto"}>Weekly Winners</Text>
+    <VStack space={"md"} bgColor="#000">
+      <Text color='#FFF' fontWeight="$semibold" fontSize={"$2xl"} ml={"auto"} mr={"auto"}>Weekly Winners</Text>
       <HStack w={"$full"} pb={"$3"}>
         <Pressable onPress={() => switchType()} w={"$1/2"}>
           <Box pr={"$3"}>
-            <Text bold={boardType === "votes"} underline={boardType === "votes"} fontSize={"$xl"} ml="auto" color='#000'>Votes</Text>
+            <Text bold={boardType === "votes"} underline={boardType === "votes"} fontSize={"$xl"} ml="auto" color='#FFF'>Votes</Text>
           </Box>
         </Pressable>
         <Pressable onPress={() => switchType()} w={"$1/2"}>
           <Box pl={"$3"}>
-            <Text bold={boardType === "streaks"} underline={boardType === "streaks"} fontSize={"$xl"} color='#000'>Streaks</Text>
+            <Text bold={boardType === "streaks"} underline={boardType === "streaks"} fontSize={"$xl"} color='#FFF'>Streaks</Text>
           </Box>
         </Pressable>
       </HStack>
@@ -76,13 +76,13 @@ const LeaderboardHeader = ({ boardType, setBoardType }: LeaderboardHeaderProps) 
 const VotesCard = () => {
   return (
     <HStack alignItems={"center"} px={"$3"}>
-      <Avatar bgColor="#000" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText>Pealie Poo</AvatarFallbackText>
+      <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
+        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
       </Avatar>
-      <Text fontSize={"$xl"} >Pealie Poo</Text>
+      <Text fontSize={"$xl"} color={"#FFF"} >Pealie Poo</Text>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"} ml={"auto"}>
-        <HeartIconOutline size={30} color={"#000"} />
-        <Text color={"#000"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <HeartIconOutline size={30} color={"#FFF"} />
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
       </HStack>
     </HStack>
   )
@@ -91,16 +91,16 @@ const VotesCard = () => {
 const StreaksCard = () => {
   return (
     <HStack alignItems={"center"} px={"$3"}>
-      <Avatar bgColor="#000" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText>Pealie Poo</AvatarFallbackText>
+      <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
+        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
       </Avatar>
       <VStack>
-        <Text fontSize={"$xl"} mb={"$1"}>Pealie Poo</Text>
+        <Text fontSize={"$xl"} mb={"$1"} color={"#FFF"}>Pealie Poo</Text>
         <WeeklyCalendar />
       </VStack>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"} ml={"auto"}>
-        <FireIcon size={30} color={"#000"} />
-        <Text color={"#000"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <FireIcon size={30} color={"#FFF"} />
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
       </HStack>
     </HStack>
   )

@@ -20,14 +20,6 @@ const Tab = createBottomTabNavigator();
 
 const UserStack = () => {
   const screenOptions: BottomTabNavigationOptions = {
-    headerStyle: {
-      backgroundColor: "#151e2b"
-    },
-    headerTitleStyle: {
-      color: "#FFF",
-      fontSize: 20
-    },
-    headerTitleAlign: "center",
     tabBarHideOnKeyboard: true
   }
 
@@ -44,12 +36,13 @@ const UserStack = () => {
 
         return <QuestionMarkCircleIcon color={color} size={size} />
       },
-      tabBarActiveTintColor: '#000',
-      tabBarInactiveTintColor: '#000',
+      tabBarActiveTintColor: '#FFF',
+      tabBarInactiveTintColor: '#FFF',
       tabBarStyle: {
-        backgroundColor: "#FFF",
+        backgroundColor: "#000",
         paddingTop: 10,
-        borderTopWidth: 1,
+        borderTopWidth: 0,
+        borderColor: "#0f0f0f"
       },
       headerShown: false,
     })} initialRouteName='Dashboard'>

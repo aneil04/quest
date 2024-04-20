@@ -6,9 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfilePage = () => {
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>
-      <Box bgColor={"#FFF"} h={"$full"}>
-        <ScrollView contentContainerStyle={{ rowGap: 16 }} pt={"$5"}>
+    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
+      <Box bgColor={"#000"} h={"$full"}>
+        <ScrollView contentContainerStyle={{ rowGap: 16 }}>
           <ProfileBaner />
           <Stats />
           <UserPost />
@@ -27,10 +27,10 @@ const ProfilePage = () => {
 const ProfileBaner = () => {
   return (
     <VStack style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-      <Avatar bgColor="#000" size="xl" borderRadius="$full">
-        <AvatarFallbackText>Pealie Poo</AvatarFallbackText>
+      <Avatar bgColor="#FFF" size="xl" borderRadius="$full">
+        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
       </Avatar>
-      <Text color={"#000"} mt={"$2"} bold fontSize={"$xl"} >Pealie Poo</Text>
+      <Text color={"#FFF"} mt={"$2"} bold fontSize={"$xl"} >Pealie Poo</Text>
       <Text color={"$backgroundDark400"}>I love touching Bowen</Text>
     </VStack>
   )
@@ -41,15 +41,15 @@ const Stats = () => {
     <HStack style={{ display: "flex", justifyContent: "space-around", }}>
       <Center>
         <PhotoIcon size={30} color={"#0d82d5"} />
-        <Text>12</Text>
+        <Text color={"$backgroundDark400"}>12</Text>
       </Center>
       <Center>
         <HeartIcon size={30} color={"#ff00b3"} />
-        <Text>123</Text>
+        <Text color={"$backgroundDark400"}>123</Text>
       </Center>
       <Center>
         <FireIcon size={30} color={"#ff6200"} />
-        <Text>20</Text>
+        <Text color={"$backgroundDark400"}>20</Text>
       </Center>
     </HStack>
   )
@@ -59,9 +59,9 @@ const UserPost = () => {
   return (
     <VStack space={"xs"}>
       <HStack alignItems={"center"} mb={"$1"} ml={"$2"}>
-        <PencilIcon color={"#000"} size={25} />
+        <PencilIcon color={"#FFF"} size={25} />
         <VStack ml={"$2"}>
-          <Text color={"#000"} fontSize={"$xl"} fontWeight="$semibold">Take a picture of the stars</Text>
+          <Text color={"#FFF"} fontSize={"$xl"} fontWeight="$semibold">Take a picture of the stars</Text>
           <Text color={"$backgroundDark400"}>April 20th, 2024</Text>
         </VStack>
       </HStack>
@@ -75,8 +75,8 @@ const UserPost = () => {
         }}
       />
       <HStack ml={"$2"} alignItems={"center"}>
-        <HeartIcon size={30} color={"#000"} />
-        <Text color={"#000"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <HeartIcon size={30} color={"#FFF"} />
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
       </HStack>
     </VStack>
   )

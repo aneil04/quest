@@ -45,13 +45,13 @@ const CameraScreen = ({ setImage }: CameraScreenProps) => {
   }
 
   return (
-    <Camera ref={ref => { if (ref) { setCamera(ref) } }} style={{ width: "100%", height: "100%", justifyContent: "flex-end" }} type={type}>
-      <HStack w={"$full"} justifyContent={"space-between"} px={"$7"} pb={"$12"}>
+    <Camera ref={ref => { if (ref) { setCamera(ref) } }} style={{ flexGrow: 1, justifyContent: "flex-end" }} type={type}>
+      <HStack w={"$full"} justifyContent={"space-between"} px={"$7"} pb={"$11"} pt={"$5"} >
         <Pressable onPress={() => goBack()} style={{ alignSelf: "center" }}>
           <ArrowUturnLeftIcon color={"#FFF"} size={40} />
         </Pressable>
         <Pressable onPress={() => takePicture()}>
-          <Box w={"$24"} h={"$24"} rounded={"$full"} bgColor="rgba(255,255,255,0.8)" p={"$2"}>
+          <Box w={"$20"} h={"$20"} rounded={"$full"} bgColor="rgba(255,255,255,0.8)" p={"$2"}>
             <Box w={"$full"} h={"$full"} rounded={"$full"} borderColor="$backgroundDark700" borderWidth={"$2"}></Box>
           </Box>
         </Pressable>
@@ -84,13 +84,15 @@ const ImageScreen = ({ image, setImage }: ImageScreenProps) => {
 
   return (
     <>
-      <Pressable onPress={() => cancelImage()} position='absolute' zIndex={1} top={"$16"} left={"$7"}>
+      <Pressable onPress={() => cancelImage()} position='absolute' zIndex={1} top={"$7"} left={"$7"}>
         <XMarkIcon size={40} color="#FFF" />
       </Pressable>
-      <Button onPress={() => postImage()} position='absolute' size={"xl"} bgColor={"#FFF"} zIndex={1} bottom={"$20"} right={"$7"} rounded={"$full"}>
-        <ButtonText color="#000" mr={"$2"}>Post</ButtonText>
-        <ButtonIcon size={"xl"} color="#000" as={PaperAirplaneIcon} />
-      </Button>
+      <Box flex={1} justifyContent='flex-end' flexDirection='row' position='absolute' zIndex={1} w={"$full"} bottom={"$0"} left={"$0"} px={"$7"} pb={"$16"} pt={"$8"}>
+        <Button onPress={() => postImage()} size={"xl"} bgColor={"#FFF"} rounded={"$full"}>
+          <ButtonText color="#000" mr={"$2"}>Post</ButtonText>
+          <ButtonIcon size={"xl"} color="#000" as={PaperAirplaneIcon} />
+        </Button>
+      </Box>
       <Image
         w={"$full"}
         h={"$full"}

@@ -12,9 +12,9 @@ const HomePage = () => {
   const { completedQuest } = useQuestContext()
 
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#FFF" }}>
+    <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
       {completedQuest ?
-        <Box bgColor={"#FFF"} h={"$full"}>
+        <Box bgColor={"#000"} h={"$full"}>
           <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
             <QuestHeader dailyQuest="Take a picture of the stars" />
             <Post />
@@ -36,8 +36,8 @@ interface QuestHeaderProps {
 
 const QuestHeader = ({ dailyQuest }: QuestHeaderProps) => {
   return (
-    <Center w={"$full"} style={{ backgroundColor: "#FFF" }} borderBottomWidth={1} borderBottomColor={"$backgroundDark300"} pt={3} pb={10}>
-      <Text color={"#000"} bold fontSize={"$xl"}>{dailyQuest}</Text>
+    <Center w={"$full"} style={{ backgroundColor: "#000" }} pt={3} pb={10}>
+      <Text color={"#FFF"} bold fontSize={"$xl"}>{dailyQuest}</Text>
     </Center>
   )
 }
@@ -46,10 +46,10 @@ const Post = () => {
   return (
     <Box>
       <HStack alignItems={"center"} mb={"$2"} pl={"$2"}>
-        <Avatar bgColor="#000" size="md" mr={"$2"} borderRadius="$full">
-          <AvatarFallbackText>Pealie Poo</AvatarFallbackText>
+        <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
+          <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
         </Avatar>
-        <Text color={"#000"} fontSize={"$xl"} >Pealie Poo</Text>
+        <Text color={"#FFF"} fontSize={"$xl"} >Pealie Poo</Text>
       </HStack>
       <Image
         w={"$full"}
@@ -57,12 +57,12 @@ const Post = () => {
         style={{ aspectRatio: 1 }}
         alt="Post Image"
         source={{
-          uri: "https://images.ctfassets.net/cnu0m8re1exe/6rkPDdVnHFMDz29XtjWXuY/fc31afa24685cb2babdb2a32dc2bfa7d/shutterstock_169805951.jpg",
+          uri: "https://cdn.mos.cms.futurecdn.net/xKkFJqojdSd8vJuvCLs5mU.jpg",
         }}
       />
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"}>
-        <HeartIconOutline size={30} color={"#000"} />
-        <Text color={"#000"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <HeartIconOutline size={30} color={"#FFF"} />
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
       </HStack>
     </Box>
   )
