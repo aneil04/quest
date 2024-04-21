@@ -1,5 +1,6 @@
 import {
-  Text, Box, InputIcon, Button, ButtonText, VStack, InputSlot, Input, InputField
+  Text, Box, InputIcon, Button, ButtonText, VStack, InputSlot, Input,
+  InputField, Image
 } from '@gluestack-ui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthContext } from '../contexts/AuthContext';
@@ -46,30 +47,37 @@ const SignInCard = ({ setPage }: CardProps) => {
   }
 
   return (
-    <VStack w={"$2/3"} space={"md"} mt={-40}>
-      <VStack space='sm'>
-        <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Sign in</Text>
-        <Text color="$backgroundDark600" fontSize={"$xl"} >Sign in to your account here</Text>
-      </VStack>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Email' type="text" onChangeText={value => setEmail(value)} />
-      </Input>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={LockClosedIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Password' onChangeText={value => setPassword(value)} />
-      </Input>
-      <Button onPress={() => handleSignIn()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
-        <ButtonText>Sign in</ButtonText>
-      </Button>
-      <Pressable onPress={() => setPage("sign up")}>
-        <Text color="#FFF" ml="auto" mr="auto" underline>Sign up</Text>
-      </Pressable>
-    </VStack>
+    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start"}} h={"$full"} p={"$5"}>
+      <Box alignItems='center' mb={"$1"} mt={0} pt={0}>
+        <Image style={{width: 100, height: 25}} source={require('../assets/logo.png')} alt="logo"/>
+      </Box>
+      <Box flex={1} justifyContent="center" width="100%">
+        <VStack w={"$2/3"} justifyContent='center' space={"md"} mt={-40}>
+          <VStack space='sm'>
+            <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Sign in</Text>
+            <Text color="$backgroundDark600" fontSize={"$xl"} >Sign in to your account here</Text>
+          </VStack>
+          <Input rounded={"$full"} size='xl' pl={"$2"}>
+            <InputSlot>
+              <InputIcon as={UserIcon} size={"xl"} />
+            </InputSlot>
+            <InputField color='#FFF' placeholder='Email' type="text" onChangeText={value => setEmail(value)} />
+          </Input>
+          <Input rounded={"$full"} size='xl' pl={"$2"}>
+            <InputSlot>
+              <InputIcon as={LockClosedIcon} size={"xl"} />
+            </InputSlot>
+            <InputField color='#FFF' placeholder='Password' onChangeText={value => setPassword(value)} />
+          </Input>
+          <Button onPress={() => handleSignIn()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
+            <ButtonText>Sign in</ButtonText>
+          </Button>
+          <Pressable onPress={() => setPage("sign up")}>
+            <Text color="#FFF" ml="auto" mr="auto" underline>Sign up</Text>
+          </Pressable>
+        </VStack>
+      </Box>
+    </Box>
   )
 }
 
@@ -97,48 +105,55 @@ const SignUpCard = ({ setPage }: CardProps) => {
   }
 
   return (
-    <VStack w={"$2/3"} space={"md"} mt={-40}>
-      <VStack space='sm'>
-        <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Create account</Text>
-        <Text color="$backgroundDark600" fontSize={"$xl"} >Create a free account here</Text>
-      </VStack>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='First Name' type="text" onChangeText={value => setFirstName(value)} />
-      </Input>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Last Name' type="text" onChangeText={value => setLastName(value)} />
-      </Input>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Email' type="text" onChangeText={value => setEmail(value)} />
-      </Input>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={LockClosedIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Password' onChangeText={value => setPassword(value)} />
-      </Input>
-      <Input rounded={"$full"} size='xl' pl={"$2"}>
-        <InputSlot>
-          <InputIcon as={LockClosedIcon} size={"xl"} />
-        </InputSlot>
-        <InputField color='#FFF' placeholder='Repeat Password' onChangeText={value => setRepeatPassword(value)} />
-      </Input>
-      <Button onPress={() => handleSignUp()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
-        <ButtonText>Sign up</ButtonText>
-      </Button>
-      <Pressable onPress={() => setPage("sign in")}>
-        <Text color="#FFF" ml="auto" mr="auto" underline>Sign in</Text>
-      </Pressable>
-    </VStack>
+    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start"}} h={"$full"} p={"$5"}>
+      <Box alignItems='center' mb={"$1"} mt={0} pt={0}>
+        <Image style={{width: 100, height: 25}} source={require('../assets/logo.png')} alt="logo"/>
+      </Box>
+      <Box flex={1} justifyContent="center" width="100%">
+        <VStack w={"$full"} space={"md"}>
+          <VStack space='sm'>
+            <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Create account</Text>
+          <Text color="$backgroundDark600" fontSize={"$xl"} >Create a free account here</Text>
+        </VStack>
+        <Input rounded={"$full"} size='xl' pl={"$2"}>
+          <InputSlot>
+            <InputIcon as={UserIcon} size={"xl"} />
+          </InputSlot>
+          <InputField color='#FFF' placeholder='First Name' type="text" onChangeText={value => setFirstName(value)} />
+        </Input>
+        <Input rounded={"$full"} size='xl' pl={"$2"}>
+          <InputSlot>
+            <InputIcon as={UserIcon} size={"xl"} />
+          </InputSlot>
+          <InputField color='#FFF' placeholder='Last Name' type="text" onChangeText={value => setLastName(value)} />
+        </Input>
+        <Input rounded={"$full"} size='xl' pl={"$2"}>
+          <InputSlot>
+            <InputIcon as={UserIcon} size={"xl"} />
+          </InputSlot>
+          <InputField color='#FFF' placeholder='Email' type="text" onChangeText={value => setEmail(value)} />
+        </Input>
+        <Input rounded={"$full"} size='xl' pl={"$2"}>
+          <InputSlot>
+            <InputIcon as={LockClosedIcon} size={"xl"} />
+          </InputSlot>
+          <InputField color='#FFF' placeholder='Password' onChangeText={value => setPassword(value)} />
+        </Input>
+        <Input rounded={"$full"} size='xl' pl={"$2"}>
+          <InputSlot>
+            <InputIcon as={LockClosedIcon} size={"xl"} />
+          </InputSlot>
+          <InputField color='#FFF' placeholder='Repeat Password' onChangeText={value => setRepeatPassword(value)} />
+        </Input>
+        <Button onPress={() => handleSignUp()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
+          <ButtonText>Sign up</ButtonText>
+        </Button>
+        <Pressable onPress={() => setPage("sign in")}>
+          <Text color="#FFF" ml="auto" mr="auto" underline>Sign in</Text>
+        </Pressable>
+        </VStack>
+      </Box>
+    </Box>
   )
 }
 
