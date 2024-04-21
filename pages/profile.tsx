@@ -1,5 +1,5 @@
 import {
-  Text, Box, ScrollView, VStack, HStack, Avatar, Pressable, AvatarFallbackText, Image, Center
+  Text, Box, ScrollView, VStack, HStack, Avatar, Pressable, AvatarFallbackText, Image, Center, AvatarImage
 } from '@gluestack-ui/themed';
 import { HeartIcon, FireIcon, PhotoIcon, PencilIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -31,10 +31,12 @@ const ProfileBaner = () => {
   return (
     <VStack style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       <Avatar bgColor="#FFF" size="xl" borderRadius="$full">
+        <AvatarImage alt='pfp' source={{
+          uri: user?.user.photoURL ?? "" 
+        }} />
         <AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>
       </Avatar>
       <Text color={"#FFF"} mt={"$2"} bold fontSize={"$xl"} >{user?.user.displayName}</Text>
-      {/* <Text color={"$backgroundDark400"}>I love touching Bowen</Text> */}
     </VStack>
   )
 }

@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth';
 import auth from '../firebase';
 import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
+import UserImageUpload from '../components/userImageUpload';
 
 const AuthPage = () => {
   const [page, setPage] = useState<string>("sign in")
@@ -85,6 +86,7 @@ const SignInCard = ({ setPage }: CardProps) => {
 const SignUpCard = ({ setPage }: CardProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation()
   const { setUser } = useAuthContext()
+  const [profilePicURI, setProfilePicURI] = useState<string>("")
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
@@ -101,7 +103,7 @@ const SignUpCard = ({ setPage }: CardProps) => {
         return;
       }
 
-      return updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}`, photoURL: "nothing to show" })
+      return updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}`, photoURL: profilePicURI })
     }).then(user => {
       setUser(auth.currentUser)
       navigation.navigate("UserStack")
@@ -121,6 +123,9 @@ const SignUpCard = ({ setPage }: CardProps) => {
             <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Create account</Text>
             <Text color="$backgroundDark600" fontSize={"$xl"} >Create a free account here</Text>
           </VStack>
+          <Box ml={"auto"} mr={"auto"} mb={"$3"}>
+            <UserImageUpload setProfilePicURI={setProfilePicURI} profilePicURI={profilePicURI} fallbackName={`${firstName} ${lastName}`} />
+          </Box>
           <Input rounded={"$full"} size='xl' pl={"$2"}>
             <InputSlot>
               <InputIcon as={UserIcon} size={"xl"} />
