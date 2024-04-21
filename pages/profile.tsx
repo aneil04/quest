@@ -39,7 +39,7 @@ const ProfilePage = () => {
     };
 
     fetchPrevPosts();
-  })
+  }, [user?.user.uid])
   );
 
   return (
@@ -48,7 +48,7 @@ const ProfilePage = () => {
         <ScrollView contentContainerStyle={{ rowGap: 16 }}>
           <ProfileBaner />
           <Stats />
-          {posts.map(post => (
+          {posts?.map(post => (
             <UserPost
               key={post.postID}
               imageUrl={post.imageUrl}
@@ -72,14 +72,14 @@ const ProfileBaner = () => {
         <AvatarImage alt='pfp' source={{
           uri: user?.user.photoURL ?? "" 
         }} />
-        <AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>
+        {!user?.user.photoURL ?? <AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>}
       </Avatar>
       <Text color={"#FFF"} mt={"$2"} bold fontSize={"$xl"} >{user?.user.displayName}</Text>
     </VStack>
   )
 }
 
-function formatDateFromTimestamp(timestamp) {
+function formatDateFromTimestamp(timestamp: any) {
   const date = new Date(timestamp._seconds * 1000); // Convert seconds to milliseconds
   return date.toLocaleDateString("en-US", { 
     year: 'numeric', 
@@ -102,7 +102,7 @@ const Stats = () => {
       try {
         const response = await fetch(`https://getuserdata-mpzx6jfkja-uc.a.run.app?userId=${user?.user.uid}`); 
         const data = await response.json();
-        setSubmissionCount(data.QuestSubmissions.length);
+        setSubmissionCount(data.QuestSubmissions?.length ?? 0);
         setUpvoteCount(data.Upvotes);
         setStreakCount(data.Streak);
       } catch (error) {
@@ -111,7 +111,7 @@ const Stats = () => {
     };
 
     fetchUserData();
-    })
+    }, [user?.user.uid])
   );
 
   return (
@@ -135,7 +135,7 @@ const Stats = () => {
 interface UserPostProps {
   imageUrl: string;
   title: string;
-  date: string;
+  date: any;
   votes: number;
 }
 const UserPost = ({ imageUrl, title, date, votes }: UserPostProps) => {

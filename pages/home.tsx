@@ -1,5 +1,5 @@
 import {
-  Text, Box, ScrollView, Image, HStack, Avatar, Center, AvatarFallbackText
+  Text, Box, ScrollView, Image, HStack, Avatar, Center, AvatarFallbackText, AvatarImage
 } from '@gluestack-ui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeartIcon as HeartIconSolid } from 'react-native-heroicons/solid';
@@ -36,7 +36,7 @@ const HomePage = () => {
         <Box bgColor={"#000"} h={"$full"}>
           <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
             <QuestHeader dailyQuest={dailyQuest} />
-            {posts.map(post => <Post key={post.postID} data={post} />)}
+            {posts?.map(post => <Post key={post.postID} data={post} />)}
           </ScrollView>
         </Box> :
         <UnlockContentPage />
@@ -62,6 +62,7 @@ interface PostProps {
 }
 
 const Post = ({ data }: PostProps) => {
+  const { user } = useAuthContext()
   const [liked, setLiked] = useState<boolean>(false)
   const [votes, setVotes] = useState<number>(data.votes)
 
@@ -87,7 +88,10 @@ const Post = ({ data }: PostProps) => {
     <Box>
       <HStack alignItems={"center"} mb={"$2"} pl={"$2"}>
         <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-          <AvatarFallbackText color={"#000"}>{data.userDisplayName}</AvatarFallbackText>
+          {/* <AvatarImage alt='pfp' source={{
+            uri: user?.user.photoURL ?? ""
+          }} /> */}
+          {<AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>}
         </Avatar>
         <Text color={"#FFF"} fontSize={"$xl"}>{data.userDisplayName}</Text>
       </HStack>

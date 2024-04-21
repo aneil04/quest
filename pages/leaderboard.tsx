@@ -1,9 +1,10 @@
 import {
-  Text, Box, ScrollView, VStack, HStack, Avatar, Pressable, AvatarFallbackText, Button, ButtonText
+  Text, Box, ScrollView, VStack, HStack, Avatar, Pressable, AvatarFallbackText, AvatarImage
 } from '@gluestack-ui/themed';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FireIcon, HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
+import { useAuthContext } from '../contexts/AuthContext';
 
 interface Vote {
   UserID: string;
@@ -41,10 +42,10 @@ const LeaderboardPage = () => {
           <LeaderboardHeader boardType={boardType} setBoardType={setBoardType} />
           {boardType === "votes" ?
             <VStack space={"lg"}>
-              {voteBoardData.map((vote) => <VotesCard key={vote.UserID} data={vote} />)}
+              {voteBoardData?.map((vote) => <VotesCard key={vote.UserID} data={vote} />)}
             </VStack> :
             <VStack space={"lg"}>
-              {streakBoardData.map((streak) => <StreaksCard key={streak.UserID} data={streak} />)}
+              {streakBoardData?.map((streak) => <StreaksCard key={streak.UserID} data={streak} />)}
             </VStack>
           }
         </ScrollView>
@@ -91,10 +92,15 @@ interface VoteCardProps {
 }
 
 const VotesCard = ({ data }: VoteCardProps) => {
+  const { user } = useAuthContext()
+
   return (
     <HStack alignItems={"center"} px={"$3"}>
       <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText color={"#000"}>{data.DisplayName}</AvatarFallbackText>
+        {/* <AvatarImage alt='pfp' source={{
+          uri: user?.user.photoURL ?? ""
+        }} /> */}
+        {<AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>}
       </Avatar>
       <Text fontSize={"$xl"} color={"#FFF"} >{data.DisplayName}</Text>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"} ml={"auto"}>
@@ -110,10 +116,15 @@ interface StreakCardProps {
 }
 
 const StreaksCard = ({ data }: StreakCardProps) => {
+  const { user } = useAuthContext()
+
   return (
     <HStack alignItems={"center"} px={"$3"}>
       <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText color={"#000"}>{data.DisplayName}</AvatarFallbackText>
+        {/* <AvatarImage alt='pfp' source={{
+          uri: user?.user.photoURL ?? ""
+        }} /> */}
+        {<AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>}
       </Avatar>
       <VStack>
         <Text fontSize={"$xl"} mb={"$1"} color={"#FFF"}>{data.DisplayName}</Text>

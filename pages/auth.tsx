@@ -103,9 +103,21 @@ const SignUpCard = ({ setPage }: CardProps) => {
         return;
       }
 
+      setUser(user)
+
       return updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}`, photoURL: profilePicURI })
+    }).then(res => {
+      if (auth.currentUser === null) {
+        return;
+      }
+
+      return fetch(`https://createuser-mpzx6jfkja-uc.a.run.app?userId=${auth.currentUser.uid}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
     }).then(user => {
-      setUser(auth.currentUser)
       navigation.navigate("UserStack")
     }).catch(function (error) {
       console.log(error.message);

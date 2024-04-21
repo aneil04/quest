@@ -14,7 +14,7 @@ export function useQuestContext() {
 
 
 export function QuestProvider({ children }: any) {
-  const [completedQuest, setCompletedQuest] = useState<boolean>(false)
+  const [completedQuest, setCompletedQuest] = useState<boolean>(true)
   const [dailyQuest, setDailyQuest] = useState<string>("")
 
   useEffect(() => {
