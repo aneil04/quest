@@ -71,7 +71,7 @@ const UserPost = () => {
         style={{ aspectRatio: 1 }}
         alt="Post Image"
         source={{
-          uri: "https://images.ctfassets.net/cnu0m8re1exe/6rkPDdVnHFMDz29XtjWXuY/fc31afa24685cb2babdb2a32dc2bfa7d/shutterstock_169805951.jpg",
+          uri: "https://cdn.mos.cms.futurecdn.net/xKkFJqojdSd8vJuvCLs5mU.jpg",
         }}
       />
       <HStack ml={"$2"} alignItems={"center"}>

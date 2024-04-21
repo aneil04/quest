@@ -7,8 +7,10 @@ import UserStack from './stacks/userStack';
 import { AuthProvider } from './contexts/AuthContext';
 import QuestUpload from './pages/questUpload';
 import { QuestProvider } from './contexts/QuestContext';
+import AuthPage from './pages/auth';
 
 type AppStackParamList = {
+  Auth: undefined;
   UserStack: undefined;
   QuestUpload: undefined;
 };
@@ -21,7 +23,8 @@ export default function App() {
       <AuthProvider>
         <QuestProvider>
           <NavigationContainer>
-            <AppStack.Navigator initialRouteName="UserStack" screenOptions={{ headerShown: false, gestureEnabled: true }}>
+            <AppStack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false, gestureEnabled: true }}>
+              <AppStack.Screen name="Auth" component={AuthPage} />
               <AppStack.Screen name="UserStack" component={UserStack} />
               <AppStack.Screen name="QuestUpload" component={QuestUpload} />
             </AppStack.Navigator>

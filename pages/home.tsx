@@ -5,8 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeartIcon as HeartIconSolid } from 'react-native-heroicons/solid';
 import { HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
 import UnlockContentPage from './unlockContent';
-import { useState } from 'react';
 import { useQuestContext } from '../contexts/QuestContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const HomePage = () => {
   const { completedQuest } = useQuestContext()
@@ -17,11 +17,7 @@ const HomePage = () => {
         <Box bgColor={"#000"} h={"$full"}>
           <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
             <QuestHeader dailyQuest="Take a picture of the stars" />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            <Post upvotes={10} />
           </ScrollView>
         </Box> :
         <UnlockContentPage />
@@ -42,14 +38,20 @@ const QuestHeader = ({ dailyQuest }: QuestHeaderProps) => {
   )
 }
 
-const Post = () => {
+interface PostProps {
+  upvotes: Number
+}
+
+const Post = ({ upvotes }: PostProps) => {
+  const { user } = useAuthContext()
+
   return (
     <Box>
       <HStack alignItems={"center"} mb={"$2"} pl={"$2"}>
         <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-          <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
+          <AvatarFallbackText color={"#000"}>{`${user.first_name} ${user.last_name}`}</AvatarFallbackText>
         </Avatar>
-        <Text color={"#FFF"} fontSize={"$xl"} >Pealie Poo</Text>
+        <Text color={"#FFF"} fontSize={"$xl"} >{`${user.first_name} ${user.last_name}`}</Text>
       </HStack>
       <Image
         w={"$full"}
@@ -62,7 +64,7 @@ const Post = () => {
       />
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"}>
         <HeartIconOutline size={30} color={"#FFF"} />
-        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>{`${upvotes}`}</Text>
       </HStack>
     </Box>
   )
