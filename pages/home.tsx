@@ -9,14 +9,14 @@ import { useQuestContext } from '../contexts/QuestContext';
 import { useAuthContext } from '../contexts/AuthContext';
 
 const HomePage = () => {
-  const { completedQuest } = useQuestContext()
+  const { completedQuest, dailyQuest } = useQuestContext()
 
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
       {completedQuest ?
         <Box bgColor={"#000"} h={"$full"}>
           <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
-            <QuestHeader dailyQuest="Take a picture of the stars" />
+            <QuestHeader />
             <Post upvotes={10} />
           </ScrollView>
         </Box> :
@@ -30,7 +30,8 @@ interface QuestHeaderProps {
   dailyQuest: string;
 }
 
-const QuestHeader = ({ dailyQuest }: QuestHeaderProps) => {
+const QuestHeader = () => {
+  const { completedQuest, dailyQuest } = useQuestContext()
   return (
     <Center w={"$full"} style={{ backgroundColor: "#000" }} pt={3} pb={10}>
       <Text color={"#FFF"} bold fontSize={"$xl"}>{dailyQuest}</Text>
