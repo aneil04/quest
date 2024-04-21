@@ -67,7 +67,7 @@ const SignInCard = ({ setPage }: CardProps) => {
         <ButtonText>Sign in</ButtonText>
       </Button>
       <Pressable onPress={() => setPage("sign up")}>
-        <Text color="#FFF" ml="auto" mr="auto" underline>Sign up for free</Text>
+        <Text color="#FFF" ml="auto" mr="auto" underline>Sign up</Text>
       </Pressable>
     </VStack>
   )
