@@ -7,6 +7,7 @@ import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
 import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
 import { PaperAirplaneIcon, XMarkIcon } from 'react-native-heroicons/outline';
 import { useQuestContext } from '../contexts/QuestContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const QuestUpload = () => {
   const [image, setImage] = useState<CameraCapturedPicture>()
@@ -47,7 +48,7 @@ const CameraScreen = ({ setImage }: CameraScreenProps) => {
   }
 
   function takePicture() {
-    camera?.takePictureAsync({ onPictureSaved: onPicSaved });
+    camera?.takePictureAsync({ onPictureSaved: onPicSaved, base64: true });
   }
 
   const onPicSaved = (photo: CameraCapturedPicture) => {
@@ -80,16 +81,32 @@ interface ImageScreenProps {
 
 const ImageScreen = ({ image, setImage }: ImageScreenProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation()
+  const { user } = useAuthContext();
   const { setCompletedQuest } = useQuestContext()
 
   function cancelImage() {
     setImage(null)
   }
 
-  function postImage() {
-    //call api here
-    setCompletedQuest(true)
-    navigation.navigate("UserStack")
+  function submitQuest() {
+    fetch('https://submitquest-mpzx6jfkja-uc.a.run.app', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user?.user.uid,
+        imageData: image.base64,
+        latitude: 10,
+        longitude: 10,
+        note: "hisdfasf",
+      })
+    }).then(res => {
+      setCompletedQuest(true)
+      navigation.navigate("UserStack")
+    }).catch(err => {
+      console.log("there was an error submitting your post")
+    })
   }
 
   return (
@@ -98,7 +115,7 @@ const ImageScreen = ({ image, setImage }: ImageScreenProps) => {
         <XMarkIcon size={40} color="#FFF" />
       </Pressable>
       <Box flex={1} justifyContent='flex-end' flexDirection='row' position='absolute' zIndex={1} w={"$full"} bottom={"$0"} left={"$0"} px={"$7"} pb={"$16"} pt={"$8"}>
-        <Button onPress={() => postImage()} size={"xl"} bgColor={"#FFF"} rounded={"$full"}>
+        <Button onPress={() => submitQuest()} size={"xl"} bgColor={"#FFF"} rounded={"$full"}>
           <ButtonText color="#000" mr={"$2"}>Post</ButtonText>
           <ButtonIcon size={"xl"} color="#000" as={PaperAirplaneIcon} />
         </Button>

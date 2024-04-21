@@ -1,8 +1,8 @@
-import { MultiFactorUser } from 'firebase/auth';
+import { UserCredential } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 
 interface AuthContextProvider {
-  user: MultiFactorUser | null;
+  user: UserCredential | null;
   setUser: Function;
 }
 
@@ -13,8 +13,8 @@ export function useAuthContext() {
 }
 
 export function AuthProvider({ children }: any) {
-  const [user, setUser] = useState<MultiFactorUser | null>(null)
-
+  const [user, setUser] = useState<UserCredential | null>(null)
+  
   const value = {
     user,
     setUser,

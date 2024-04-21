@@ -1,12 +1,38 @@
 import {
   Text, Box, ScrollView, VStack, HStack, Avatar, Pressable, AvatarFallbackText, Button, ButtonText
 } from '@gluestack-ui/themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FireIcon, HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
 
+interface Vote {
+  UserID: string;
+  Upvotes: number;
+  DisplayName: string;
+}
+
+interface Streak {
+  UserID: string;
+  Streak: number;
+  DisplayName: string;
+}
+
 const LeaderboardPage = () => {
   const [boardType, setBoardType] = useState<string>("votes")
+  const [voteBoardData, setVoteBoardData] = useState<Vote[]>([])
+  const [streakBoardData, setStreakBoardData] = useState<Streak[]>([])
+
+  useEffect(() => {
+    if (boardType === "votes") {
+      fetch("https://gettopusersbyvotes-mpzx6jfkja-uc.a.run.app/").then(res => res.json()).then((data: Vote[]) => {
+        setVoteBoardData(data)
+      })
+    } else {
+      fetch("https://gettopusersbystreaks-mpzx6jfkja-uc.a.run.app/").then(res => res.json()).then((data: Streak[]) => {
+        setStreakBoardData(data)
+      })
+    }
+  }, [boardType])
 
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
@@ -15,23 +41,10 @@ const LeaderboardPage = () => {
           <LeaderboardHeader boardType={boardType} setBoardType={setBoardType} />
           {boardType === "votes" ?
             <VStack space={"lg"}>
-              <VotesCard />
-              <VotesCard />
-              <VotesCard />
-              <VotesCard />
-              <VotesCard />
-              <VotesCard />
+              {voteBoardData.map((vote) => <VotesCard key={vote.UserID} data={vote} />)}
             </VStack> :
             <VStack space={"lg"}>
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
-              <StreaksCard />
+              {streakBoardData.map((streak) => <StreaksCard key={streak.UserID} data={streak} />)}
             </VStack>
           }
         </ScrollView>
@@ -73,34 +86,42 @@ const LeaderboardHeader = ({ boardType, setBoardType }: LeaderboardHeaderProps) 
   )
 }
 
-const VotesCard = () => {
+interface VoteCardProps {
+  data: Vote
+}
+
+const VotesCard = ({ data }: VoteCardProps) => {
   return (
     <HStack alignItems={"center"} px={"$3"}>
       <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
+        <AvatarFallbackText color={"#000"}>{data.DisplayName}</AvatarFallbackText>
       </Avatar>
-      <Text fontSize={"$xl"} color={"#FFF"} >Pealie Poo</Text>
+      <Text fontSize={"$xl"} color={"#FFF"} >{data.DisplayName}</Text>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"} ml={"auto"}>
         <HeartIconOutline size={30} color={"#FFF"} />
-        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>{data.Upvotes}</Text>
       </HStack>
     </HStack>
   )
 }
 
-const StreaksCard = () => {
+interface StreakCardProps {
+  data: Streak
+}
+
+const StreaksCard = ({ data }: StreakCardProps) => {
   return (
     <HStack alignItems={"center"} px={"$3"}>
       <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
+        <AvatarFallbackText color={"#000"}>{data.DisplayName}</AvatarFallbackText>
       </Avatar>
       <VStack>
-        <Text fontSize={"$xl"} mb={"$1"} color={"#FFF"}>Pealie Poo</Text>
+        <Text fontSize={"$xl"} mb={"$1"} color={"#FFF"}>{data.DisplayName}</Text>
         <WeeklyCalendar />
       </VStack>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"} ml={"auto"}>
         <FireIcon size={30} color={"#FFF"} />
-        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>37</Text>
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>{data.Streak}</Text>
       </HStack>
     </HStack>
   )
@@ -109,13 +130,13 @@ const StreaksCard = () => {
 const WeeklyCalendar = () => {
   return (
     <HStack space={"sm"}>
-      <CalendarCell checked={true} />
-      <CalendarCell checked={false} />
-      <CalendarCell checked={true} />
-      <CalendarCell checked={true} />
-      <CalendarCell checked={false} />
-      <CalendarCell checked={true} />
-      <CalendarCell checked={true} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
+      <CalendarCell checked={Math.random() > 0.5} />
     </HStack>
   )
 }

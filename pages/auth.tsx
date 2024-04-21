@@ -3,12 +3,13 @@ import {
 } from '@gluestack-ui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthContext } from '../contexts/AuthContext';
-import { UserIcon, LockClosedIcon } from 'react-native-heroicons/outline';
+import { UserIcon, LockClosedIcon, IdentificationIcon } from 'react-native-heroicons/outline';
 import { useState } from 'react';
 import { Pressable } from 'react-native';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 import auth from '../firebase';
 import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
@@ -37,12 +38,12 @@ const SignInCard = ({ setPage }: CardProps) => {
 
   function handleSignIn() {
     signInWithEmailAndPassword(auth, email, password).then(user => {
-      setUser(user.user)
+      setUser(user)
       navigation.navigate("UserStack")
     }).catch(function (error) {
       // unsuccessful sign in
       console.log("There was an error logging in.");
-    });
+    })
   }
 
   return (
@@ -88,12 +89,17 @@ const SignUpCard = ({ setPage }: CardProps) => {
     }
 
     createUserWithEmailAndPassword(auth, email, password).then(user => {
-      setUser(user.user)
+      if (auth.currentUser === null) {
+        return;
+      }
+
+      return updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}`, photoURL: "nothing to show" })
+    }).then(user => {
+      setUser(auth.currentUser)
       navigation.navigate("UserStack")
     }).catch(function (error) {
       console.log(error.message);
     });
-
   }
 
   return (
@@ -104,13 +110,13 @@ const SignUpCard = ({ setPage }: CardProps) => {
       </VStack>
       <Input rounded={"$full"} size='xl' pl={"$2"}>
         <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
+          <InputIcon as={IdentificationIcon} size={"xl"} />
         </InputSlot>
         <InputField color='#FFF' placeholder='First Name' type="text" onChangeText={value => setFirstName(value)} />
       </Input>
       <Input rounded={"$full"} size='xl' pl={"$2"}>
         <InputSlot>
-          <InputIcon as={UserIcon} size={"xl"} />
+          <InputIcon as={IdentificationIcon} size={"xl"} />
         </InputSlot>
         <InputField color='#FFF' placeholder='Last Name' type="text" onChangeText={value => setLastName(value)} />
       </Input>

@@ -7,17 +7,36 @@ import { HeartIcon as HeartIconOutline } from 'react-native-heroicons/outline';
 import UnlockContentPage from './unlockContent';
 import { useQuestContext } from '../contexts/QuestContext';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler';
+
+interface Post {
+  imageUrl: string;
+  postID: string;
+  votes: number;
+  userId: string;
+  userDisplayName: string;
+}
 
 const HomePage = () => {
   const { completedQuest, dailyQuest } = useQuestContext()
+  const [posts, setPosts] = useState<Post[]>([])
+
+  useEffect(() => {
+    fetch('https://getallposts-mpzx6jfkja-uc.a.run.app/').then(res => res.json()).then((data: Post[]) => {
+      setPosts(data)
+    }).catch(err => {
+      console.log("error getting posts")
+    });
+  }, [completedQuest])
 
   return (
     <SafeAreaView edges={["top", "right", "left"]} style={{ backgroundColor: "#000" }}>
       {completedQuest ?
         <Box bgColor={"#000"} h={"$full"}>
           <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{ rowGap: 16 }}>
-            <QuestHeader />
-            <Post upvotes={10} />
+            <QuestHeader dailyQuest={dailyQuest} />
+            {posts.map(post => <Post key={post.postID} data={post} />)}
           </ScrollView>
         </Box> :
         <UnlockContentPage />
@@ -30,8 +49,7 @@ interface QuestHeaderProps {
   dailyQuest: string;
 }
 
-const QuestHeader = () => {
-  const { completedQuest, dailyQuest } = useQuestContext()
+const QuestHeader = ({ dailyQuest }: QuestHeaderProps) => {
   return (
     <Center w={"$full"} style={{ backgroundColor: "#000" }} pt={3} pb={10}>
       <Text color={"#FFF"} bold fontSize={"$xl"}>{dailyQuest}</Text>
@@ -40,32 +58,55 @@ const QuestHeader = () => {
 }
 
 interface PostProps {
-  upvotes: Number
+  data: Post
 }
 
-const Post = ({ upvotes }: PostProps) => {
-  const { user } = useAuthContext()
+const Post = ({ data }: PostProps) => {
+  const [liked, setLiked] = useState<boolean>(false)
+  const [votes, setVotes] = useState<number>(data.votes)
+
+  function upvotePost() {
+    if (liked) { //dislike post
+      fetch(`https://dislikepost-mpzx6jfkja-uc.a.run.app?postId=${data.postID}&userId=${data.userId}`).then(res => {
+        setLiked(false)
+        setVotes(votes => votes - 1)
+      }).catch(err => {
+        console.log("error upvoting post")
+      })
+    } else { //like post
+      fetch(`https://likepost-mpzx6jfkja-uc.a.run.app?postId=${data.postID}&userId=${data.userId}`).then(res => {
+        setLiked(true)
+        setVotes(votes => votes + 1)
+      }).catch(err => {
+        console.log("error upvoting post")
+      })
+    }
+  }
 
   return (
     <Box>
       <HStack alignItems={"center"} mb={"$2"} pl={"$2"}>
         <Avatar bgColor="#FFF" size="md" mr={"$2"} borderRadius="$full">
-          <AvatarFallbackText color={"#000"}>{`${user.first_name} ${user.last_name}`}</AvatarFallbackText>
+          <AvatarFallbackText color={"#000"}>{data.userDisplayName}</AvatarFallbackText>
         </Avatar>
-        <Text color={"#FFF"} fontSize={"$xl"} >{`${user.first_name} ${user.last_name}`}</Text>
+        <Text color={"#FFF"} fontSize={"$xl"}>{data.userDisplayName}</Text>
       </HStack>
-      <Image
-        w={"$full"}
-        h={"auto"}
-        style={{ aspectRatio: 1 }}
-        alt="Post Image"
-        source={{
-          uri: "https://cdn.mos.cms.futurecdn.net/xKkFJqojdSd8vJuvCLs5mU.jpg",
-        }}
-      />
+      <GestureHandlerRootView>
+        <TapGestureHandler numberOfTaps={2} onActivated={() => upvotePost()}>
+          <Image
+            w={"$full"}
+            h={"auto"}
+            style={{ aspectRatio: 1 }}
+            alt="Post Image"
+            source={{
+              uri: data.imageUrl,
+            }}
+          />
+        </TapGestureHandler>
+      </GestureHandlerRootView>
       <HStack mt={"$2"} pl={"$2"} alignItems={"center"}>
-        <HeartIconOutline size={30} color={"#FFF"} />
-        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>{`${upvotes}`}</Text>
+        {liked ? <HeartIconSolid size={30} color={"#db2777"} /> : <HeartIconOutline size={30} color={"#FFF"} />}
+        <Text color={"#FFF"} fontSize={"$xl"} ml={"$1"}>{votes}</Text>
       </HStack>
     </Box>
   )

@@ -3,6 +3,7 @@ import {
 } from '@gluestack-ui/themed';
 import { HeartIcon, FireIcon, PhotoIcon, PencilIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const ProfilePage = () => {
   return (
@@ -25,13 +26,15 @@ const ProfilePage = () => {
 }
 
 const ProfileBaner = () => {
+  const { user } = useAuthContext()
+
   return (
     <VStack style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       <Avatar bgColor="#FFF" size="xl" borderRadius="$full">
-        <AvatarFallbackText color={"#000"}>Pealie Poo</AvatarFallbackText>
+        <AvatarFallbackText color={"#000"}>{user?.user.displayName}</AvatarFallbackText>
       </Avatar>
-      <Text color={"#FFF"} mt={"$2"} bold fontSize={"$xl"} >Pealie Poo</Text>
-      <Text color={"$backgroundDark400"}>I love touching Bowen</Text>
+      <Text color={"#FFF"} mt={"$2"} bold fontSize={"$xl"} >{user?.user.displayName}</Text>
+      {/* <Text color={"$backgroundDark400"}>I love touching Bowen</Text> */}
     </VStack>
   )
 }
