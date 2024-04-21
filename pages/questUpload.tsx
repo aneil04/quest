@@ -29,7 +29,7 @@ const CameraScreen = ({ setImage }: CameraScreenProps) => {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>(false);
 
   useEffect(() => {
-    Camera.getCameraPermissionsAsync().then(res => {
+    Camera.requestCameraPermissionsAsync().then(res => {
       setHasCameraPermission(res.granted)
     })
   }, []);
