@@ -10,8 +10,6 @@ const UnlockContentPage = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation()
   const { dailyQuest } = useQuestContext()
 
- 
-
   function goToCamera() {
     navigation.navigate("QuestUpload")
   }

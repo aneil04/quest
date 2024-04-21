@@ -79,6 +79,8 @@ const SignUpCard = ({ setPage }: CardProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
 
   function handleSignUp() {
     if (password !== repeatPassword) {
@@ -100,6 +102,18 @@ const SignUpCard = ({ setPage }: CardProps) => {
         <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Create account</Text>
         <Text color="$backgroundDark600" fontSize={"$xl"} >Create a free account here</Text>
       </VStack>
+      <Input rounded={"$full"} size='xl' pl={"$2"}>
+        <InputSlot>
+          <InputIcon as={UserIcon} size={"xl"} />
+        </InputSlot>
+        <InputField color='#FFF' placeholder='First Name' type="text" onChangeText={value => setFirstName(value)} />
+      </Input>
+      <Input rounded={"$full"} size='xl' pl={"$2"}>
+        <InputSlot>
+          <InputIcon as={UserIcon} size={"xl"} />
+        </InputSlot>
+        <InputField color='#FFF' placeholder='Last Name' type="text" onChangeText={value => setLastName(value)} />
+      </Input>
       <Input rounded={"$full"} size='xl' pl={"$2"}>
         <InputSlot>
           <InputIcon as={UserIcon} size={"xl"} />

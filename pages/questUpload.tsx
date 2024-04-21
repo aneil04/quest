@@ -2,7 +2,7 @@ import {
   Box, HStack, Pressable, Image, Button, ButtonText, ButtonIcon
 } from '@gluestack-ui/themed';
 import { ArrowPathRoundedSquareIcon, ArrowUturnLeftIcon } from 'react-native-heroicons/solid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
 import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
 import { PaperAirplaneIcon, XMarkIcon } from 'react-native-heroicons/outline';
@@ -25,8 +25,18 @@ interface CameraScreenProps {
 const CameraScreen = ({ setImage }: CameraScreenProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation()
   const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
   const [camera, setCamera] = useState<Camera>()
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean>(false);
+
+  useEffect(() => {
+    Camera.requestCameraPermissionsAsync().then(res => {
+      setHasCameraPermission(res.granted)
+    })
+  }, []);
+
+  if (!hasCameraPermission) {
+    return;
+  }
 
   function goBack() {
     navigation.goBack()
