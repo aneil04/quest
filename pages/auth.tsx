@@ -48,12 +48,12 @@ const SignInCard = ({ setPage }: CardProps) => {
   }
 
   return (
-    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }} h={"$full"} p={"$5"}>
+    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }} h={"$full"} w={"$full"}>
       <Box alignItems='center' mb={"$1"} mt={0} pt={0}>
         <Image style={{ width: 100, height: 25 }} source={require('../assets/logo.png')} alt="logo" />
       </Box>
-      <Box flex={1} justifyContent="center" width="100%">
-        <VStack w={"$2/3"} justifyContent='center' space={"md"} mt={-40}>
+      <Box flex={1} justifyContent="center" width="$3/4" mt={"-20%"}>
+        <VStack w={"$full"} justifyContent='center' space={"md"}>
           <VStack space='sm'>
             <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Sign in</Text>
             <Text color="$backgroundDark600" fontSize={"$xl"} >Sign in to your account here</Text>
@@ -70,7 +70,7 @@ const SignInCard = ({ setPage }: CardProps) => {
             </InputSlot>
             <InputField color='#FFF' placeholder='Password' onChangeText={value => setPassword(value)} />
           </Input>
-          <Button onPress={() => handleSignIn()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
+          <Button onPress={() => handleSignIn()} size='xl' rounded="$full" mx={"$12"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
             <ButtonText>Sign in</ButtonText>
           </Button>
           <Pressable onPress={() => setPage("sign up")}>
@@ -111,11 +111,11 @@ const SignUpCard = ({ setPage }: CardProps) => {
   }
 
   return (
-    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }} h={"$full"} p={"$5"}>
+    <Box bgColor='#000' style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }} h={"$full"} w={"$full"}>
       <Box alignItems='center' mb={"$1"} mt={0} pt={0}>
         <Image style={{ width: 100, height: 25 }} source={require('../assets/logo.png')} alt="logo" />
       </Box>
-      <Box flex={1} justifyContent="center" width="100%">
+      <Box flex={1} justifyContent="center" width="$3/4" mt={"-20%"}>
         <VStack w={"$full"} space={"md"}>
           <VStack space='sm'>
             <Text color="#FFF" fontSize={"$4xl"} fontWeight='semibold'>Create account</Text>
@@ -151,7 +151,7 @@ const SignUpCard = ({ setPage }: CardProps) => {
             </InputSlot>
             <InputField color='#FFF' placeholder='Repeat Password' onChangeText={value => setRepeatPassword(value)} />
           </Input>
-          <Button onPress={() => handleSignUp()} size='xl' rounded="$full" mx={"$10"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
+          <Button onPress={() => handleSignUp()} size='xl' rounded="$full" mx={"$12"} backgroundColor={"$pink600"} $active-backgroundColor={"$pink800"}>
             <ButtonText>Sign up</ButtonText>
           </Button>
           <Pressable onPress={() => setPage("sign in")}>
